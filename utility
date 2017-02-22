@@ -1,0 +1,15 @@
+<?php
+
+use Symfony\Component\Console\Application;
+use UtilityCli\Command\Example\Greetings;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$app = new Application();
+
+$app->setName('Utility CLI Tools');
+
+// Add commands here...
+$app->add(new Greetings());
+
+$app->run();
