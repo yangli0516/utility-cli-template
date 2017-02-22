@@ -4,6 +4,7 @@ use Symfony\Component\Console\Application;
 use UtilityCli\Command\Example\Greetings;
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/global.php';
 
 $app = new Application();
 
