@@ -1,0 +1,13 @@
+{
+  "name": "yangli/utility-cli-template",
+  "autoload": {
+    "psr-4": {
+      "UtilityCli\\": "src/"
+    }
+  },
+  "require": {
+    "symfony/console": "^3.1",
+    "raveren/kint": "^1.0",
+    "symfony/var-dumper": "^3.1"
+  }
+}
