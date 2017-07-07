@@ -26,7 +26,7 @@ class TxtReader
     {
         $lines = [];
         while (($line = fgets($this->fileHandler)) !== false) {
-            $lines[] = $line;
+            $lines[] = trim($line);
         }
         rewind($this->fileHandler);
         return $lines;
@@ -42,7 +42,7 @@ class TxtReader
     {
         $table = [];
         while (($line = fgets($this->fileHandler)) !== false) {
-            $row = explode($delimiter, $line);
+            $row = explode($delimiter, trim($line));
             $table[] = $row;
         }
         rewind($this->fileHandler);
