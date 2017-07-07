@@ -8,6 +8,11 @@
   "require": {
     "symfony/console": "^3.1",
     "raveren/kint": "^1.0",
-    "symfony/var-dumper": "^3.1"
+    "symfony/var-dumper": "^3.1",
+    "sabre/uri": "^1.2",
+    "phpoffice/phpexcel": "^1.8",
+    "wa72/htmlpagedom": "^1.3",
+    "guzzlehttp/guzzle": "~6.0",
+    "hoa/mime": "~3.0"
   }
 }
