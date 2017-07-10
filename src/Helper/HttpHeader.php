@@ -8,6 +8,11 @@ class HttpHeader
 {
     private $response = NULL;
 
+    /**
+     * HttpHeader constructor.
+     *
+     * @param string $url
+     */
     public function __construct($url) {
         $client = new Client();
         try {
@@ -18,10 +23,20 @@ class HttpHeader
         }
     }
 
+    /**
+     * Check if the header response is 200.
+     *
+     * @return bool
+     */
     public function exists() {
         return (isset($this->response) && $this->response->getStatusCode() === 200);
     }
 
+    /**
+     * Get the content type from the header.
+     *
+     * @return string|null
+     */
     public function getContentType() {
         if (isset($this->response) && $this->response->getStatusCode() === 200) {
             $header = $this->response->getHeader('Content-Type');
@@ -34,12 +49,17 @@ class HttpHeader
         return NULL;
     }
 
+    /**
+     * Get the proposed filename from the content-disposition header.
+     *
+     * @return string|null
+     */
     public function getFileName() {
         if (isset($this->response) && $this->response->getStatusCode() === 200) {
             $header = $this->response->getHeader('Content-Disposition');
             if ($header) {
                 $disposition = $header[0];
-                if (preg_match('/filename\=\"([^"]+)\"/i', $disposition, $matches)) {
+                if (preg_match('/filename\=\"?([^"]+)\"?/i', $disposition, $matches)) {
                     return $matches[1];
                 }
             }
