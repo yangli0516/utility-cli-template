@@ -11,16 +11,20 @@ namespace UtilityCli\Output;
  */
 class TxtWriter
 {
-    private $fileHandler;
+    private $filePath;
 
     /**
      * TxtWriter constructor.
      *
      * @param string $filePath The path of the output text file.
+     * @param bool $append If append the text.
      */
-    public function __construct($filePath)
+    public function __construct($filePath, $append = false)
     {
-        $this->fileHandler = fopen($filePath, 'w');
+        $this->filePath = $filePath;
+        if (!$append) {
+            file_put_contents($filePath, '');
+        }
     }
 
     /**
@@ -30,7 +34,7 @@ class TxtWriter
      */
     public function writeLine($text = '')
     {
-        fwrite($this->fileHandler, $text . PHP_EOL);
+        file_put_contents($this->filePath, $text . PHP_EOL, FILE_APPEND);
     }
 
     /**
@@ -134,20 +138,5 @@ class TxtWriter
                 $this->writeNode($subnode, $level + 1, $indentChar, $indentLevel);
             }
         }
-    }
-
-    /**
-     * Close the file.
-     */
-    public function close()
-    {
-        if (isset($this->fileHandler) && is_resource($this->fileHandler)) {
-            fclose($this->fileHandler);
-        }
-    }
-
-    public function __destruct()
-    {
-        $this->close();
     }
 }
