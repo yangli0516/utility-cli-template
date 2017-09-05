@@ -20,6 +20,19 @@ class Text
     }
 
     /**
+     * Remove BOM from the text.
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function removeBOM($text)
+    {
+        $bom = pack('H*','EFBBBF');
+        $text = preg_replace("/^$bom/", '', $text);
+        return $text;
+    }
+
+    /**
      * Remove tab characters from a text.
      *
      * @param string $text
