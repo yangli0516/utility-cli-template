@@ -16,7 +16,7 @@ class Text
         if (strpos($text, "\n") !== false) {
             return trim(preg_replace('/\s+/', ' ', $text));
         }
-        return $text;
+        return trim($text);
     }
 
     /**
