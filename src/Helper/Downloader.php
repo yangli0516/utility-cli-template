@@ -25,17 +25,13 @@ class Downloader
      */
     public function saveTo($url, $filename, $dir)
     {
-        try {
-            $response = $this->client->get($url, ['http_errors' => false]);
-            if ($response->getStatusCode() === 200) {
-                $saveto = self::fileSaveName($filename, $dir);
-                $result = file_put_contents($saveto, $response->getBody());
-                if ($result !== false) {
-                    return realpath($saveto);
-                }
+        $contents = self::getContent($url);
+        if ($contents) {
+            $saveto = self::fileSaveName($filename, $dir);
+            $result = file_put_contents($saveto, $contents);
+            if ($result !== false) {
+                return realpath($saveto);
             }
-        } catch (\Exception $e) {
-
         }
         return null;
     }
