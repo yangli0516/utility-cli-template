@@ -41,6 +41,25 @@ class Downloader
     }
 
     /**
+     * Get body content from a URL.
+     *
+     * @param string $url
+     * @return null|string
+     */
+    public function getContent($url)
+    {
+        try {
+            $response = $this->client->get($url, ['http_errors' => false]);
+            if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 400) {
+                return (string) $response->getBody();
+            }
+        } catch (\Exception $e) {
+
+        }
+        return null;
+    }
+
+    /**
      * Resolve the file duplicate names when saving a file.
      *
      * @param string $filename The intended file saved name.
