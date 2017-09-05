@@ -103,6 +103,13 @@ class Path
     public static function getURLKey($url)
     {
         $url = \Sabre\Uri\parse($url);
-        return strtolower(urldecode($url['path']));
+        $key = strtolower(urldecode($url['path']));
+        if (substr($key, strlen($key)-1) === '/') {
+            $key = substr($key, 0, strlen($key)-1);
+        }
+        if (empty($key)) {
+            $key = '<root>';
+        }
+        return $key;
     }
 }
