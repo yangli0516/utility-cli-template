@@ -54,7 +54,7 @@ class ExcelReader
                     if ($rawData[0][$j]) {
                         $arrayKey = $rawData[0][$j];
                         if (trim($rawData[$i][$j]) !== '') {
-                            $newRow[$arrayKey] = $this->breakMultiValue(trim($rawData[$i][$j]));
+                            $newRow[$arrayKey] = trim($rawData[$i][$j]);
                             $isAllNull = false;
                         } else {
                             $newRow[$arrayKey] = null;
@@ -101,21 +101,4 @@ class ExcelReader
         }
         return $data;
     }
-
-    /**
-     * Explode the value with the (|).
-     *
-     * @param string $cellValue The original cell value.
-     *
-     * @return array|string If it's a multi-value, it returns an array of the
-     *   values. Otherwise, it returns the single value as string.
-     */
-    private function breakMultiValue($cellValue)
-    {
-        if (preg_match_all('/\{([^}]+)\}/', $cellValue, $matches) > 0) {
-            return $matches[1];
-        }
-        return $cellValue;
-    }
-
 }
