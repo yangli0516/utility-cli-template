@@ -29,7 +29,7 @@ class HttpHeader
      * @return bool
      */
     public function exists() {
-        return (isset($this->response) && $this->response->getStatusCode() === 200);
+        return (isset($this->response) && $this->response->getStatusCode() >= 200 && $this->response->getStatusCode() < 400);
     }
 
     /**
@@ -38,7 +38,7 @@ class HttpHeader
      * @return string|null
      */
     public function getContentType() {
-        if (isset($this->response) && $this->response->getStatusCode() === 200) {
+        if ($this->exists()) {
             $header = $this->response->getHeader('Content-Type');
             if ($header) {
                 $contentType = $header[0];
@@ -55,7 +55,7 @@ class HttpHeader
      * @return string|null
      */
     public function getFileName() {
-        if (isset($this->response) && $this->response->getStatusCode() === 200) {
+        if ($this->exists()) {
             $header = $this->response->getHeader('Content-Disposition');
             if ($header) {
                 $disposition = $header[0];
