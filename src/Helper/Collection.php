@@ -30,4 +30,24 @@ class Collection
         }
         return null;
     }
+
+    /**
+     * Group an array of associative arrays by the key of each element.
+     *
+     * @param array $items
+     * @param $key
+     * @return array
+     */
+    public static function group(array $items, $key)
+    {
+        $grouped = [];
+        foreach ($items as $item) {
+            $groupKey = $item[$key];
+            if (!isset($grouped[$groupKey])) {
+                $grouped[$groupKey] = [];
+            }
+            $grouped[$groupKey][] = $item;
+        }
+        return $grouped;
+    }
 }
