@@ -112,4 +112,17 @@ class Path
         }
         return $key;
     }
+
+    /**
+     * Remove the query string from an URL.
+     *
+     * @param string $url The URL.
+     * @return string
+     */
+    public static function removeQueryFromURL($url)
+    {
+        $parts = \Sabre\Uri\parse($url);
+        $parts['query'] = null;
+        return \Sabre\Uri\build($parts);
+    }
 }
