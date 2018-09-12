@@ -24,6 +24,19 @@ class HttpHeader
     }
 
     /**
+     * Get the response code of the HTTP request.
+     *
+     * @return int|null
+     */
+    public function getResponseCode()
+    {
+        if (isset($this->response)) {
+            return $this->response->getStatusCode();
+        }
+        return null;
+    }
+
+    /**
      * Check if the header response is 200.
      *
      * @return bool
