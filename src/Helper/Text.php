@@ -62,4 +62,32 @@ class Text
         }
         return $text;
     }
+
+
+    /**
+     * Decode HTML special character.
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function htmlSpecialCharDecode($text)
+    {
+        if (!empty($text)) {
+            return html_entity_decode($text, ENT_QUOTES | ENT_XML1, 'UTF-8');
+        }
+        return '';
+    }
+
+    /**
+     * Replace the line break characters within the text.
+     *
+     * @param string $text
+     * @param string $replace
+     *
+     * @return null|string|string[]
+     */
+    public static function replaceLineBreaks($text, $replace = '<br>')
+    {
+        return preg_replace('/(\r\n|\n|\r)/', $replace, $text);
+    }
 }
