@@ -125,4 +125,19 @@ class Path
         $parts['query'] = null;
         return \Sabre\Uri\build($parts);
     }
+
+    /**
+     * Create the full URL from a URL.
+     *
+     * @param string $url The input URL. It can be an absolute or relative URL.
+     * @param string $referer The URL where the input URL is referred.
+     *
+     * @return string
+     */
+    public static function toFullURL($url, $referer)
+    {
+        $full = \Sabre\Uri\resolve($referer, $url);
+        $full = \Sabre\Uri\normalize($full);
+        return $full;
+    }
 }

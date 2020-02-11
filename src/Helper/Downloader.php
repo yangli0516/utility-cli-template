@@ -9,6 +9,8 @@ class Downloader
 {
     private $client;
 
+    private $lastResponseCode;
+
     public function __construct()
     {
         $this->client = new Client();
@@ -46,6 +48,7 @@ class Downloader
     {
         try {
             $response = $this->client->get($url, ['http_errors' => false]);
+            $this->lastResponseCode = $response->getStatusCode();
             if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 400) {
                 return (string) $response->getBody();
             }
@@ -77,5 +80,15 @@ class Downloader
             $saveto = $dir . DIRECTORY_SEPARATOR . $filename;
         }
         return $saveto;
+    }
+
+    /**
+     * Get the response code of last request.
+     *
+     * @return int
+     */
+    public function getLastResponseCode()
+    {
+        return $this->lastResponseCode;
     }
 }

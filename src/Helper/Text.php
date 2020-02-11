@@ -90,4 +90,66 @@ class Text
     {
         return preg_replace('/(\r\n|\n|\r)/', $replace, $text);
     }
+
+    /**
+     * Trim a string.
+     *
+     * This is an enhanced version of PHP's trim function which will also trim
+     * non-space blank characters.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    public static function trim($text)
+    {
+        return preg_replace('/^[\s\x00]+|[\s\x00]+$/u', '', $text);
+    }
+
+    /**
+     * Truncate a string to a given length.
+     *
+     * @param string $str
+     * @param int $length
+     * @param bool $ellipses Whether add the ellipses into the end. The length of
+     *   the ellipses will be counted into the truncated length.
+     *
+     * @return string
+     */
+    public static function truncate($str, $length = 255, $ellipses = false)
+    {
+        if (strlen($str) > $length) {
+            if ($ellipses) {
+                $length = $length - 3;
+            }
+            $str = substr($str, 0, $length);
+            if ($ellipses) {
+                $str .= '...';
+            }
+        }
+        return $str;
+    }
+
+    /**
+     * Multi-byte truncate function.
+     *
+     * @param string $str
+     * @param int $length
+     * @param bool $ellipses
+     *
+     * @return string
+     */
+    public static function mb_truncate($str, $length = 255, $ellipses = false)
+    {
+        if (mb_strlen($str) > $length) {
+            if ($ellipses) {
+                $length = $length - 3;
+            }
+            $str = mb_substr($str, 0, $length);
+            if ($ellipses) {
+                $str .= '...';
+            }
+        }
+        return $str;
+    }
 }

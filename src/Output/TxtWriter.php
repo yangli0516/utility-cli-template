@@ -18,12 +18,13 @@ class TxtWriter
      *
      * @param string $filePath The path of the output text file.
      * @param bool $append If append the text.
+     * @param bool $bom Whether add byte order mask to the file.
      */
-    public function __construct($filePath, $append = false)
+    public function __construct($filePath, $append = false, $bom = false)
     {
         $this->filePath = $filePath;
         if (!$append) {
-            file_put_contents($filePath, '');
+            file_put_contents($filePath, $bom ? chr(239) . chr(187) . chr(191) : '');
         }
     }
 
