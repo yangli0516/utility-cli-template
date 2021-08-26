@@ -25,7 +25,7 @@ class DBConnection
         if (!isset($dbname) || !isset($host) || !isset($username) || !isset($password)) {
             throw new \Exception('Incomplete database info');
         }
-        $this->pdo = new \PDO("mysql:host={$host};dbname={$dbname};charset=UTF8", $username, $password);
+        $this->pdo = new \PDO("mysql:host={$host};port=3309;dbname={$dbname};charset=UTF8", $username, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
@@ -98,6 +98,19 @@ class DBConnection
     {
         $sql = "Select * FROM $tableName";
         return $this->createMap($sql, $keyName, $valueName);
+    }
+
+    /**
+     * Check whether a database table exists.
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    public function tableExists($tableName)
+    {
+        $result = $this->select("SHOW TABLES LIKE '{$tableName}'");
+        return (count($result) > 0);
     }
 
     /**
